@@ -1,0 +1,46 @@
+{
+	"private": true,
+	"name": "questions-server",
+	"version": "0.0.0-dev.0",
+	"description": "server to power a questions board",
+	"type": "module",
+	"main": "dist/main.js",
+	"scripts": {
+		"prepare": "run-s clean && run-p build && run-s test",
+		"clean": "rm -rf dist && mkdir dist",
+		"build": "tsc",
+		"watch": "tsc -w",
+		"start": "node dist/main",
+		"test": "exit 0"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/chase-moskal/questions-server.git"
+	},
+	"keywords": [],
+	"author": "Chase Moskal <chasemoskal@gmail.com>",
+	"license": "ISC",
+	"bugs": {
+		"url": "https://github.com/chase-moskal/questions-server/issues"
+	},
+	"homepage": "https://github.com/chase-moskal/questions-server#readme",
+	"dependencies": {
+		"authoritarian": "0.0.0-dev.46",
+		"js-yaml": "^3.13.1",
+		"koa": "^2.11.0",
+		"koa-mount": "^4.0.0",
+		"mongodb": "^3.5.5",
+		"redcrypto": "0.0.0-dev.5",
+		"renraku": "0.0.0-dev.25"
+	},
+	"devDependencies": {
+		"@types/js-yaml": "^3.12.3",
+		"@types/koa": "^2.11.2",
+		"@types/koa-bodyparser": "^4.3.0",
+		"@types/koa-mount": "^4.0.0",
+		"@types/mongodb": "^3.5.3",
+		"@types/node": "^12.12.31",
+		"npm-run-all": "^4.1.5",
+		"typescript": "^3.8.3"
+	}
+}

@@ -1,0 +1,15 @@
+
+questionsServer:
+  port: 8002
+  authServerOrigin: http://auth.metaldev.chasemoskal.com:8000
+  profileServerOrigin: http://profile.metaldev.chasemoskal.com:8001
+
+mongo:
+  link: mongodb+srv://developer:eAQiCvYa2nQLKVPZ@devcluster-g4uwh.mongodb.net/test?retryWrites=true&w=majority
+  database: metaldev
+
+cors:
+  allowed:
+    pattern: ^https?://(.*)metal(shop|back|dev|front)\.chasemoskal\.com(|:8\d{3})$
+    flags: i
+  forbidden: null
