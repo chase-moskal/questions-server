@@ -1,4 +1,6 @@
 
+debug: true
+
 questionsServer:
   port: 8002
   authServerOrigin: http://auth.metaldev.chasemoskal.com:8000

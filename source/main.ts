@@ -8,7 +8,7 @@ import {Logger} from "authoritarian/dist/toolbox/logger.js"
 import {health} from "authoritarian/dist/toolbox/health.js"
 import {read, readYaml} from "authoritarian/dist/toolbox/reading.js"
 import {connectMongo} from "authoritarian/dist/toolbox/connect-mongo.js"
-import {dieWithDignity} from "authoritarian/dist/toolbox/die-with-dignity.js"
+import {deathWithDignity} from "authoritarian/dist/toolbox/death-with-dignity.js"
 import {unpackCorsConfig} from "authoritarian/dist/toolbox/unpack-cors-config.js"
 import {makeAuthClients} from "authoritarian/dist/business/auth-api/auth-clients.js"
 import {QuestionsApi, QuestionsServerConfig} from "authoritarian/dist/interfaces.js"
@@ -17,7 +17,7 @@ import {makeProfileMagistrateClient} from "authoritarian/dist/business/profile-m
 import {mongoQuestionsDatalayer} from "authoritarian/dist/business/questions-bureau/mongo-questions-datalayer.js"
 
 const logger = new Logger()
-dieWithDignity({logger})
+deathWithDignity({logger})
 
 const paths = {
 	config: "config/config.yaml",
@@ -26,8 +26,10 @@ const paths = {
 
 ~async function main() {
 	const config: QuestionsServerConfig = await readYaml(paths.config)
+	const {debug} = config
 	const {port} = config.questionsServer
-	const collection = await connectMongo(config.mongo, "questions")
+	const database = await connectMongo(config.mongo)
+	const collection = database.collection("questions")
 	const authServerPublicKey = await read(paths.authServerPublicKey)
 	const {authServerOrigin, profileServerOrigin} = config.questionsServer
 
@@ -46,8 +48,8 @@ const paths = {
 	})
 
 	const {koa: apiKoa} = await apiServer<QuestionsApi>({
+		debug,
 		logger,
-		debug: true,
 		exposures: {
 			questionsBureau: {
 				exposed: questionsBureau,
